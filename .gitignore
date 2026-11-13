@@ -1,0 +1,8 @@
+# Segredos e ambiente local (manual, secao 3)
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.streamlit/secrets.toml
+.DS_Store
