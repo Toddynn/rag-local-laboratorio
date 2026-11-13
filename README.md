@@ -88,7 +88,14 @@ docker compose --profile ui down
 ollama stop qwen3:1.7b
 ```
 
-No Linux, prefixe os comandos `docker` com `sudo`; no Windows, use `.\.venv\Scripts\python.exe`.
+### Execução automática
+
+| Sistema | Comando (na raiz do projeto) |
+|---|---|
+| macOS / Ubuntu / Debian | `bash scripts/rodar_tudo.sh` (no Linux, usa `sudo docker` quando o usuário não está no grupo `docker`) |
+| Windows (PowerShell comum) | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned` e depois `.\scripts\rodar_tudo.ps1` |
+
+Os dois scripts seguem a ordem do manual e gravam tudo em `evidencias/`, incluindo o log `00_execucao.log`.
 
 ## Segurança
 

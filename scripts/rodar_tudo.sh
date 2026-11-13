@@ -8,8 +8,10 @@ LOG=evidencias/00_execucao.log
 exec > >(tee "$LOG") 2>&1
 
 PY=./.venv/bin/python
-DC="docker compose"
-if [ "$(uname)" = "Linux" ] && ! docker info >/dev/null 2>&1; then DC="sudo docker compose"; fi
+D="docker"
+# No Linux o manual usa sudo (sem grupo docker); no macOS nao e necessario.
+if [ "$(uname)" = "Linux" ] && ! docker info >/dev/null 2>&1; then D="sudo docker"; fi
+DC="$D compose"
 
 passo() { echo; echo "=== $(date '+%H:%M:%S') $*"; }
 falha() { echo "[FALHA] $*"; exit 1; }
@@ -18,8 +20,8 @@ passo "0. Pre-requisitos"
 for c in python3 docker ollama curl; do
   command -v "$c" >/dev/null && echo "[OK] $c: $(command -v "$c")" || falha "$c nao encontrado (macOS: brew install $c / Docker Desktop / ollama.com/download)"
 done
-docker info >/dev/null 2>&1 || falha "Docker nao esta rodando. Abra o Docker Desktop."
-docker run --rm hello-world | head -3
+$D info >/dev/null 2>&1 || falha "Docker nao esta rodando (Linux: sudo systemctl start docker; macOS: abra o Docker Desktop)."
+$D run --rm hello-world | head -3
 
 passo "1. Ambiente virtual e bibliotecas"
 [ -d .venv ] || python3 -m venv .venv
@@ -31,13 +33,13 @@ passo "2. Credenciais (.env)"
 [ -f .env ] && echo ".env ja existe; mantido." || $PY scripts/criar_env.py
 
 passo "3. vm.max_map_count (VM do Docker)"
-docker run --rm alpine sysctl vm.max_map_count | tee evidencias/vm_max_map_count.txt
+if [ "$(uname)" = "Linux" ]; then sysctl vm.max_map_count; else $D run --rm alpine sysctl vm.max_map_count; fi | tee evidencias/vm_max_map_count.txt
 
 passo "4. Elasticsearch"
 $DC config --quiet && echo "[OK] compose.yaml valido"
 $DC up -d elasticsearch
 for i in $(seq 1 60); do
-  st=$(docker inspect -f '{{.State.Health.Status}}' rag-local-elasticsearch 2>/dev/null)
+  st=$($D inspect -f '{{.State.Health.Status}}' rag-local-elasticsearch 2>/dev/null)
   echo "  saude: $st ($i/60)"; [ "$st" = "healthy" ] && break; sleep 5
 done
 [ "$st" = "healthy" ] || { $DC logs --tail=80 elasticsearch; falha "Elasticsearch nao ficou healthy"; }
@@ -77,7 +79,7 @@ kill $ST_PID 2>/dev/null
 
 passo "10. Encerramento (sem apagar volumes)"
 $DC --profile ui down 2>&1 | tee evidencias/07_encerramento.txt
-docker volume ls | grep rag-local | tee -a evidencias/07_encerramento.txt
+$D volume ls | grep rag-local | tee -a evidencias/07_encerramento.txt
 ollama stop qwen3:1.7b 2>/dev/null
 
 passo "Concluido. Confira a pasta evidencias/."
