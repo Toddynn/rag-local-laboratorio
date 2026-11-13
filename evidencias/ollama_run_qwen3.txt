@@ -1,0 +1,6 @@
+Thinking...
+Okay, the user wants to know what information retrieval is in two sentences. Let me start by defining it. Information retrieval is the process of finding and providing relevant information from a large dataset. I need to make sure the explanation is clear and concise. Maybe mention the key aspects like searching, filtering, and relevance. Also, include examples like search engines or databases. Oh, and maybe touch on the importance in modern technology. Let me check if that's all in two sentences. Yes, that should work.
+...done thinking.
+
+A recuperação de informação é o processo de encontrar e apresentar dados relevantes em uma base de dados, utilizando algoritmos que analisam e filtram conteúdo para garantir precisão e eficiência. Essa técnica é essencial em sistemas de busca, busca de dados e inteligência artificial, permitindo acessar informações complexas de forma rápida e precisa.
+

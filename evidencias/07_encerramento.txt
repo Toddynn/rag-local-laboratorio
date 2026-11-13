@@ -1,0 +1,12 @@
+ Container rag-local-kibana Stopping 
+ Container rag-local-kibana Stopped 
+ Container rag-local-kibana Removing 
+ Container rag-local-kibana Removed 
+ Container rag-local-elasticsearch Stopping 
+ Container rag-local-elasticsearch Stopped 
+ Container rag-local-elasticsearch Removing 
+ Container rag-local-elasticsearch Removed 
+ Network rag-local-didatico_default Removing 
+ Network rag-local-didatico_default Removed 
+local     rag-local-didatico_esdata
+local     rag-local-didatico_kibanadata

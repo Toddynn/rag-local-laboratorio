@@ -1,0 +1,10 @@
+Sistema: macOS-27.0.1-arm64-arm-64bit-Mach-O
+Arquitetura: arm64
+Python: 3.15.2 (/Users/toddys/Documents/GitHub/rag-local-laboratorio/.venv/bin/python)
+macOS: ProductName:		macOS | ProductVersion:		27.0.1 | BuildVersion:		26A434
+RAM: 24.0 GB
+CPU: Apple M5
+Disco livre: 784.2 GB de 926.3 GB
+Docker: Docker version 29.8.2, build 7fc2dff
+Compose: Docker Compose version v5.6.0
+Ollama: ollama version is 0.40.16

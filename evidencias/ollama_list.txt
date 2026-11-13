@@ -1,0 +1,3 @@
+NAME                     ID              SIZE      MODIFIED       
+embeddinggemma:latest    85462619ee72    621 MB    33 seconds ago    
+qwen3:1.7b               8f68893c685c    1.4 GB    2 minutes ago
